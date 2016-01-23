@@ -66,6 +66,94 @@ public class TTEngine implements ActionListener {
 				parent.setFrameToPlayersList();
 			}
 		}
+		// Player profile buttons
+		else if(currentMenu == PLAYER_PROFILE)
+		{
+			if(source == parent.buttonPPBack)
+			{
+				
+			}
+			else if(source == parent.buttonPPEdit)
+			{
+				
+			}
+		}
+		// Players list buttons
+		else if(currentMenu == PLAYERS_LIST)
+		{
+			if(source == parent.buttonPLBack)
+			{
+				currentMenu = MAIN_MENU;
+				parent.setFrameToMainMenu();
+			}
+			else if(source == parent.buttonPLView)
+			{
+				
+			}
+		}
+		// Ratings menu buttons
+		else if(currentMenu == RATINGS)
+		{
+			if(source == parent.buttonRMBack)
+			{
+				currentMenu = MAIN_MENU;
+				parent.setFrameToMainMenu();
+			}
+			else if(source == parent.buttonRMGenerate)
+			{
+				
+			}
+		}
+		// Seeding menu buttons
+		else if(currentMenu == SEEDING)
+		{
+			if(source == parent.buttonSMBack)
+			{
+				currentMenu = MAIN_MENU;
+				parent.setFrameToMainMenu();
+			}
+			else if(source == parent.buttonSMPools)
+			{
+				
+			}
+			else if(source == parent.buttonSMSeed)
+			{
+				
+			}
+		}
+		// Tournament editor buttons
+		else if(currentMenu == TOURNAMENT_EDITOR)
+		{
+			if(source == parent.buttonTEAdd)
+			{
+				
+			}
+			else if(source == parent.buttonTEDelete)
+			{
+				
+			}
+			else if(source == parent.buttonTESave)
+			{
+				
+			}
+		}
+		// Tournament manager buttons
+		else if(currentMenu == TOURNAMENT_MANAGER)
+		{
+			if(source == parent.buttonTMBack)
+			{
+				currentMenu = MAIN_MENU;
+				parent.setFrameToMainMenu();
+			}
+			else if(source == parent.buttonTMDelete)
+			{
+				
+			}
+			else if(source == parent.buttonTMNew)
+			{
+				
+			}
+		}
 		
 	}
 
