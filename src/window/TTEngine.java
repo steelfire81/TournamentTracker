@@ -35,7 +35,7 @@ public class TTEngine implements ActionListener {
 		{
 			if(source == parent.buttonMMExit)
 			{
-				
+				exit();
 			}
 			else if(source == parent.buttonMMLoad)
 			{
@@ -151,10 +151,17 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonTMNew)
 			{
-				
+				currentMenu = TOURNAMENT_EDITOR;
+				parent.setFrameToTournamentEditor();
 			}
 		}
-		
 	}
-
+	
+	// exit - handles closing the program
+	private void exit()
+	{
+		// TODO: Ask to save and save data
+		//       Also call this method when window is closed via x button
+		System.exit(1);
+	}
 }
