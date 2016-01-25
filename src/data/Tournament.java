@@ -8,6 +8,9 @@ public class Tournament implements Comparable<Tournament> {
 	private int month;
 	private int day;
 	private int year;
+	private Player first;
+	private Player second;
+	private Player third;
 	private ArrayList<Match> matchList;
 	
 	// Constructor
@@ -47,6 +50,42 @@ public class Tournament implements Comparable<Tournament> {
 	public void setMatches(ArrayList<Match> matches)
 	{
 		matchList = matches;
+	}
+	
+	// getFirst
+	public Player getFirst()
+	{
+		return first;
+	}
+	
+	// setFirst
+	public void setFirst(Player f)
+	{
+		first = f;
+	}
+	
+	// getSecond
+	public Player getSecond()
+	{
+		return second;
+	}
+	
+	// setSecond
+	public void setSecond(Player s)
+	{
+		second = s;
+	}
+	
+	// getThird
+	public Player getThird()
+	{
+		return third;
+	}
+	
+	// setThird
+	public void setThird(Player t)
+	{
+		third = t;
 	}
 	
 	// compareTo
