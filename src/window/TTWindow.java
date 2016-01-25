@@ -72,18 +72,28 @@ public class TTWindow {
 	
 	// Elements - Tournament Editor Menu
 	private static final String TITLE_TOURNAMENT_EDITOR = "Tournament Editor";
-	private static final int WIDTH_TOURNAMENT_EDITOR = 500;
+	private static final int WIDTH_TOURNAMENT_EDITOR = 670;
 	private static final int HEIGHT_TOURNAMENT_EDITOR = 300;
 	private static final String LABEL_TE_WINNER = "Winner:";
 	private static final String LABEL_TE_LOSER = "Loser:";
+	private static final String LABEL_TE_DATE = "MM/DD/YYYY";
+	private static final String LABEL_TE_FIRST = "1st:";
+	private static final String LABEL_TE_SECOND = "2nd:";
+	private static final String LABEL_TE_THIRD = "3rd:";
 	JButton buttonTESave;
 	private static final String BUTTON_TE_SAVE_TEXT = "SAVE";
 	JButton buttonTEAdd;
 	private static final String BUTTON_TE_ADD_TEXT = "Add Game";
 	JButton buttonTEDelete;
-	private static final String BUTTON_TE_DELETE_TEXT = "Delete Selected Game";
+	private static final String BUTTON_TE_DELETE_TEXT = "Delete Game";
 	JTextField fieldTEWinner;
 	JTextField fieldTELoser;
+	JTextField fieldTEMonth;
+	JTextField fieldTEDay;
+	JTextField fieldTEYear;
+	JTextField fieldTEFirst;
+	JTextField fieldTESecond;
+	JTextField fieldTEThird;
 	JList<String> listTEMatches;
 	
 	// Elements - Players List
@@ -207,6 +217,8 @@ public class TTWindow {
 		// Initialize Tournament Editor Menu
 		panelTournamentEditor = new JPanel(new BorderLayout());
 		JPanel panelTEMatchInput = new JPanel(new GridLayout(1, 6));
+		JPanel panelTEAdditionalInfo = new JPanel(new GridLayout(8, 1));
+		JPanel panelTEDate = new JPanel(new GridLayout(1, 3));
 		buttonTESave = new JButton(BUTTON_TE_SAVE_TEXT);
 		buttonTEAdd = new JButton(BUTTON_TE_ADD_TEXT);
 		buttonTEDelete = new JButton(BUTTON_TE_DELETE_TEXT);
@@ -216,6 +228,20 @@ public class TTWindow {
 		JTextField labelTELoser = new JTextField(LABEL_TE_LOSER);
 		labelTELoser.setEditable(false);
 		fieldTELoser = new JTextField();
+		JTextField labelTEDate = new JTextField(LABEL_TE_DATE);
+		labelTEDate.setEditable(false);
+		fieldTEMonth = new JTextField();
+		fieldTEDay = new JTextField();
+		fieldTEYear = new JTextField();
+		JTextField labelTEFirst = new JTextField(LABEL_TE_FIRST);
+		labelTEFirst.setEditable(false);
+		fieldTEFirst = new JTextField();
+		JTextField labelTESecond = new JTextField(LABEL_TE_SECOND);
+		labelTESecond.setEditable(false);
+		fieldTESecond = new JTextField();
+		JTextField labelTEThird = new JTextField(LABEL_TE_THIRD);
+		labelTEThird.setEditable(false);
+		fieldTEThird = new JTextField();
 		listTEMatches = new JList<String>();
 		listTEMatches.setLayoutOrientation(JList.VERTICAL);
 		JScrollPane paneTEList = new JScrollPane(listTEMatches, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -223,6 +249,17 @@ public class TTWindow {
 		buttonTESave.addActionListener(engine);
 		buttonTEAdd.addActionListener(engine);
 		buttonTEDelete.addActionListener(engine);
+		panelTEDate.add(fieldTEMonth);
+		panelTEDate.add(fieldTEDay);
+		panelTEDate.add(fieldTEYear);
+		panelTEAdditionalInfo.add(labelTEDate);
+		panelTEAdditionalInfo.add(panelTEDate);
+		panelTEAdditionalInfo.add(labelTEFirst);
+		panelTEAdditionalInfo.add(fieldTEFirst);
+		panelTEAdditionalInfo.add(labelTESecond);
+		panelTEAdditionalInfo.add(fieldTESecond);
+		panelTEAdditionalInfo.add(labelTEThird);
+		panelTEAdditionalInfo.add(fieldTEThird);
 		panelTEMatchInput.add(labelTEWinner);
 		panelTEMatchInput.add(fieldTEWinner);
 		panelTEMatchInput.add(labelTELoser);
@@ -231,6 +268,7 @@ public class TTWindow {
 		panelTEMatchInput.add(buttonTEDelete);
 		panelTournamentEditor.add(buttonTESave, BorderLayout.NORTH);
 		panelTournamentEditor.add(paneTEList, BorderLayout.CENTER);
+		panelTournamentEditor.add(panelTEAdditionalInfo, BorderLayout.EAST);
 		panelTournamentEditor.add(panelTEMatchInput, BorderLayout.SOUTH);
 		
 		// Initialize Players List
