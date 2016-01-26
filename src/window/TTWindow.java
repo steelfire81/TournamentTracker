@@ -2,6 +2,8 @@ package window;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -201,7 +203,7 @@ public class TTWindow {
 		buttonTMBack = new JButton(BUTTON_TM_BACK_TEXT);
 		buttonTMNew = new JButton(BUTTON_TM_NEW_TEXT);
 		buttonTMDelete = new JButton(BUTTON_TM_DELETE_TEXT);
-		listTMTournaments = new JList<String>();
+		listTMTournaments = new JList<String>(new DefaultListModel<String>());
 		listTMTournaments.setLayoutOrientation(JList.VERTICAL);
 		JScrollPane paneTMList = new JScrollPane(listTMTournaments, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -242,7 +244,7 @@ public class TTWindow {
 		JTextField labelTEThird = new JTextField(LABEL_TE_THIRD);
 		labelTEThird.setEditable(false);
 		fieldTEThird = new JTextField();
-		listTEMatches = new JList<String>();
+		listTEMatches = new JList<String>(new DefaultListModel<String>());
 		listTEMatches.setLayoutOrientation(JList.VERTICAL);
 		JScrollPane paneTEList = new JScrollPane(listTEMatches, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -275,7 +277,7 @@ public class TTWindow {
 		panelPlayersList = new JPanel(new BorderLayout());
 		buttonPLBack = new JButton(BUTTON_PL_BACK_TEXT);
 		buttonPLView = new JButton(BUTTON_PL_VIEW_TEXT);
-		listPLPlayers = new JList<String>();
+		listPLPlayers = new JList<String>(new DefaultListModel<String>());
 		listPLPlayers.setLayoutOrientation(JList.VERTICAL);
 		JScrollPane panePLList = new JScrollPane(listPLPlayers, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

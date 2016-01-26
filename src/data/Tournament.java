@@ -14,12 +14,15 @@ public class Tournament implements Comparable<Tournament> {
 	private ArrayList<Match> matchList;
 	
 	// Constructor
-	public Tournament(int m, int d, int y, ArrayList<Match> matches)
+	public Tournament(int m, int d, int y, ArrayList<Match> matches, Player f, Player s, Player t)
 	{
 		month = m;
 		day = d;
 		year = y;
 		matchList = matches;
+		first = f;
+		second = s;
+		third = t;
 	}
 	
 	// getMonth

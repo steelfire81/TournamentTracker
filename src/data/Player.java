@@ -19,6 +19,9 @@ public class Player implements Comparable<Player> {
 	private int rating;
 	private int wins;
 	private int losses;
+	private int firstPlaces;
+	private int secondPlaces;
+	private int thirdPlaces;
 	private String main;
 	private String secondary;
 	private HashMap<Integer, VersusRecord> versusRecords;
@@ -184,5 +187,41 @@ public class Player implements Comparable<Player> {
 		{
 			record.setNumLosses(record.getNumLosses() + 1);
 		}
+	}
+	
+	// getFirstPlaces
+	public int getFirstPlaces()
+	{
+		return firstPlaces;
+	}
+	
+	// setFirstPlaces
+	public void setFirstPlaces(int f)
+	{
+		firstPlaces = f;
+	}
+	
+	// getSecondPlaces
+	public int getSecondPlaces()
+	{
+		return secondPlaces;
+	}
+	
+	// setSecondPlaces
+	public void setSecondPlaces(int s)
+	{
+		secondPlaces = s;
+	}
+	
+	// getThirdPlaces
+	public int getThirdPlaces()
+	{
+		return thirdPlaces;
+	}
+	
+	// setThirdPlaces
+	public void setThirdPlaces(int t)
+	{
+		thirdPlaces = t;
 	}
 }
