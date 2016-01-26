@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.DefaultListModel;
-
 import data.Match;
 import data.Player;
 import data.Tournament;
@@ -263,7 +261,11 @@ public class TTEngine implements ActionListener {
 		Player third = players.get(parent.fieldTEThird.getText().hashCode());
 		third.setThirdPlaces(third.getThirdPlaces() + 1);
 		
-		tournaments.add(new Tournament(month, day, year, handledMatches, first, second, third));
+		Tournament newTournament = new Tournament(month, day, year, handledMatches, first, second, third);
+		tournaments.add(newTournament);
+		
+		DefaultListModel<String> model = (DefaultListModel<String>) parent.listTMTournaments.getModel();
+		model.addElement(newTournament.toString());
 	}
 	
 	// tournamentReadyToSave
@@ -273,17 +275,17 @@ public class TTEngine implements ActionListener {
 			return false;
 		if(matches.size() < 1)
 			return false;
-		if(parent.fieldTEDay.getText() == null)
+		if(parent.fieldTEDay.getText() == "")
 			return false;
-		if(parent.fieldTEMonth.getText() == null)
+		if(parent.fieldTEMonth.getText() == "")
 			return false;
-		if(parent.fieldTEYear.getText() == null)
+		if(parent.fieldTEYear.getText() == "")
 			return false;
-		if(parent.fieldTEFirst.getText() == null)
+		if(parent.fieldTEFirst.getText() == "")
 			return false;
-		if(parent.fieldTESecond.getText() == null)
+		if(parent.fieldTESecond.getText() == "")
 			return false;
-		if(parent.fieldTEThird.getText() == null)
+		if(parent.fieldTEThird.getText() == "")
 			return false;
 		
 		// TODO: Ensure first second & third all played in this tournament

@@ -31,6 +31,6 @@ public class Match {
 	@Override
 	public String toString()
 	{
-		return winner.getName().toUpperCase() + " def. " + loser.getName().toUpperCase();
+		return winner.getName() + " DEF. " + loser.getName();
 	}
 }
