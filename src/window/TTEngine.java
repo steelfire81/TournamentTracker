@@ -3,8 +3,13 @@ package window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.Scanner;
+
 import javax.swing.DefaultListModel;
+
 import data.Match;
 import data.Player;
 import data.Tournament;
@@ -55,6 +60,7 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonMMRankings)
 			{
+				Player.setComparisonMode(Player.COMPARE_RATING);
 				currentMenu = RATINGS;
 				parent.setFrameToRatingsMenu();
 			}
@@ -69,11 +75,13 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonMMSeedTournament)
 			{
+				Player.setComparisonMode(Player.COMPARE_RATING);
 				currentMenu = SEEDING;
 				parent.setFrameToSeedingMenu();
 			}
 			else if(source == parent.buttonMMViewPlayers)
 			{
+				Player.setComparisonMode(Player.COMPARE_NAME);
 				currentMenu = PLAYERS_LIST;
 				parent.setFrameToPlayersList();
 			}
@@ -130,7 +138,10 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonSMSeed)
 			{
-				// TODO: Handle button
+				parent.areaSMResults.setText("");
+				ArrayList<String> sortedPlayers = sortPlayersByRating(getPlayerNames());
+				for(int i = 0; i < sortedPlayers.size(); i++)
+					parent.areaSMResults.append("#" + (i + 1) + ". " + sortedPlayers.get(i) + "\n");
 			}
 		}
 		// Tournament editor buttons
@@ -311,6 +322,7 @@ public class TTEngine implements ActionListener {
 	}
 	
 	// TOURNAMENT MANAGER METHODS
+	// deteleTournament
 	private void deleteTournament()
 	{
 		int selected = parent.listTMTournaments.getSelectedIndex();
@@ -320,5 +332,50 @@ public class TTEngine implements ActionListener {
 			model.remove(selected);
 			tournaments.remove(selected);
 		}
+	}
+	
+	// SEEDING MENU METHODS
+	// getPlayerNames
+	private ArrayList<String> getPlayerNames()
+	{
+		ArrayList<String> playerList = new ArrayList<String>();
+		Scanner textScanner = new Scanner(parent.areaSMPlayers.getText());
+		while(textScanner.hasNextLine())
+			playerList.add(textScanner.nextLine());
+		textScanner.close();
+		return playerList;
+	}
+	
+	// sortPlayersByRating
+	private ArrayList<String> sortPlayersByRating(ArrayList<String> names)
+	{
+		ArrayList<String> sortedPlayers = new ArrayList<String>();
+		ArrayList<Player> rankedPlayers = new ArrayList<Player>();
+		ArrayList<String> unrankedPlayers = new ArrayList<String>();
+		
+		for(int i = 0; i < names.size(); i++)
+		{
+			Player curr = players.get(names.get(i).hashCode());
+			if(curr == null)
+				unrankedPlayers.add(names.get(i));
+			else
+				rankedPlayers.add(curr);
+		}
+		
+		// Add ranked players (in order of rating) first
+		Collections.sort(rankedPlayers);
+		for(int i = 0; i < rankedPlayers.size(); i++)
+			sortedPlayers.add(rankedPlayers.get(i).getName());
+		
+		// Shuffle list of unranked players and add to list of sorted players
+		Random rand = new Random();
+		while(!unrankedPlayers.isEmpty())
+		{
+			int index = rand.nextInt(unrankedPlayers.size());
+			sortedPlayers.add(unrankedPlayers.get(index));
+			unrankedPlayers.remove(index);
+		}
+		
+		return sortedPlayers;
 	}
 }

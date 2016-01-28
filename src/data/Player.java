@@ -55,9 +55,9 @@ public class Player implements Comparable<Player> {
 		else // Rating
 		{
 			if(rating < other.getRating())
-				return -1;
-			else if(rating > other.getRating())
 				return 1;
+			else if(rating > other.getRating())
+				return -1;
 			else
 				return 0;
 		}
