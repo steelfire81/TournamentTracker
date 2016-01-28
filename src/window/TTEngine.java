@@ -51,7 +51,7 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonMMLoad)
 			{
-				
+				// TODO: Handle button
 			}
 			else if(source == parent.buttonMMRankings)
 			{
@@ -65,7 +65,7 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonMMSave)
 			{
-				
+				// TODO: Handle button
 			}
 			else if(source == parent.buttonMMSeedTournament)
 			{
@@ -83,11 +83,11 @@ public class TTEngine implements ActionListener {
 		{
 			if(source == parent.buttonPPBack)
 			{
-				
+				// TODO: Handle button
 			}
 			else if(source == parent.buttonPPEdit)
 			{
-				
+				// TODO: Handle button
 			}
 		}
 		// Players list buttons
@@ -100,7 +100,7 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonPLView)
 			{
-				
+				// TODO: Handle button
 			}
 		}
 		// Ratings menu buttons
@@ -113,7 +113,7 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonRMGenerate)
 			{
-				
+				// TODO: Handle button
 			}
 		}
 		// Seeding menu buttons
@@ -126,11 +126,11 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonSMPools)
 			{
-				
+				// TODO: Handle button
 			}
 			else if(source == parent.buttonSMSeed)
 			{
-				
+				// TODO: Handle button
 			}
 		}
 		// Tournament editor buttons
@@ -178,7 +178,7 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonTMDelete)
 			{
-				
+				deleteTournament();
 			}
 			else if(source == parent.buttonTMNew)
 			{
@@ -308,5 +308,17 @@ public class TTEngine implements ActionListener {
 		}
 		
 		return true;
+	}
+	
+	// TOURNAMENT MANAGER METHODS
+	private void deleteTournament()
+	{
+		int selected = parent.listTMTournaments.getSelectedIndex();
+		if(selected != -1) // ensure something is actually selected
+		{
+			DefaultListModel<String> model = (DefaultListModel<String>) parent.listTMTournaments.getModel();
+			model.remove(selected);
+			tournaments.remove(selected);
+		}
 	}
 }
