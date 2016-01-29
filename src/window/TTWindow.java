@@ -49,14 +49,16 @@ public class TTWindow {
 	
 	// Elements - Seeding Menu
 	private static final String TITLE_SEEDING_MENU = "Seed Tournament";
-	private static final int WIDTH_SEEDING_MENU = 500;
-	private static final int HEIGHT_SEEDING_MENU = 300;
+	private static final int WIDTH_SEEDING_MENU = 600;
+	private static final int HEIGHT_SEEDING_MENU = 400;
 	JButton buttonSMBack;
 	private static final String BUTTON_SM_BACK_TEXT = "MAIN MENU";
 	JButton buttonSMSeed;
 	private static final String BUTTON_SM_SEED_TEXT = "SEED PLAYERS >>>";
 	JButton buttonSMPools;
 	private static final String BUTTON_SM_POOLS_TEXT = "PUT INTO POOLS >>>";
+	private static final String LABEL_SM_POOL_SIZE = "Pool Size:";
+	JTextField fieldSMPoolSize;
 	JTextArea areaSMPlayers;
 	JTextArea areaSMResults;
 	
@@ -175,7 +177,8 @@ public class TTWindow {
 		// Initialize Seeding Menu
 		panelSeedTournament = new JPanel(new BorderLayout());
 		JPanel panelSMSubpanel = new JPanel(new GridLayout(1, 3));
-		JPanel panelSMButtons = new JPanel(new GridLayout(2, 1));
+		JPanel panelSMButtons = new JPanel(new GridLayout(3, 1));
+		JPanel panelSMPoolSize = new JPanel(new GridLayout(1, 2));
 		buttonSMBack = new JButton(BUTTON_SM_BACK_TEXT);
 		buttonSMSeed = new JButton(BUTTON_SM_SEED_TEXT);
 		buttonSMPools = new JButton(BUTTON_SM_POOLS_TEXT);
@@ -186,11 +189,17 @@ public class TTWindow {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane paneSMResults = new JScrollPane(areaSMResults, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JTextField labelSMPoolSize = new JTextField(LABEL_SM_POOL_SIZE);
+		labelSMPoolSize.setEditable(false);
+		fieldSMPoolSize = new JTextField();
 		buttonSMBack.addActionListener(engine);
 		buttonSMSeed.addActionListener(engine);
 		buttonSMPools.addActionListener(engine);
+		panelSMPoolSize.add(labelSMPoolSize);
+		panelSMPoolSize.add(fieldSMPoolSize);
 		panelSMButtons.add(buttonSMSeed);
 		panelSMButtons.add(buttonSMPools);
+		panelSMButtons.add(panelSMPoolSize);
 		panelSMSubpanel.add(paneSMPlayers);
 		panelSMSubpanel.add(panelSMButtons);
 		panelSMSubpanel.add(paneSMResults);

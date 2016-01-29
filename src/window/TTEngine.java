@@ -134,7 +134,8 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonSMPools)
 			{
-				// TODO: Handle button
+				parent.areaSMResults.setText("");
+				poolPlayers();
 			}
 			else if(source == parent.buttonSMSeed)
 			{
@@ -377,5 +378,59 @@ public class TTEngine implements ActionListener {
 		}
 		
 		return sortedPlayers;
+	}
+	
+	// poolPlayers
+	private void poolPlayers()
+	{
+		parent.areaSMResults.setText("");
+		
+		int poolSize = 0;
+		try
+		{
+			poolSize = Integer.parseInt(parent.fieldSMPoolSize.getText());
+		}
+		catch(NumberFormatException nfe)
+		{
+			return; // TODO: Add an error message
+		}
+		
+		ArrayList<String> sortedPlayers = sortPlayersByRating(getPlayerNames());
+		if(sortedPlayers.size() > 0)
+		{
+			int numPools = sortedPlayers.size() / poolSize;
+			if((sortedPlayers.size() % poolSize) != 0)
+				numPools++; // always round up on number of pools
+			if(numPools == 0) // ensure at least one pool
+				numPools = 1;
+			
+			String[] pools = new String[numPools];
+			for(int i = 0; i < pools.length; i++)
+				pools[i] = "";
+			
+			// Snake through sorted players list
+			boolean forwards = true;
+			int currentPool = 0;
+			while(!sortedPlayers.isEmpty())
+			{
+				pools[currentPool] += sortedPlayers.get(0) + "\n";
+				sortedPlayers.remove(0);
+				
+				if(forwards)
+					if(currentPool == (pools.length - 1))
+						forwards = false;
+					else
+						currentPool++;
+				else
+					if(currentPool == 0)
+						forwards = true;
+					else
+						currentPool--;
+			}
+			
+			// Print pools into results area
+			for(int i = 0; i < pools.length; i++)
+				parent.areaSMResults.append("POOL " + (i + 1) + ":\n" + pools[i] + "\n");
+		}
 	}
 }
