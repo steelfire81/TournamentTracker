@@ -86,6 +86,8 @@ public class TTWindow {
 	private static final String LABEL_TE_THIRD = "3rd:";
 	JButton buttonTESave;
 	private static final String BUTTON_TE_SAVE_TEXT = "SAVE";
+	JButton buttonTELoad;
+	private static final String BUTTON_TE_LOAD_TEXT = "LOAD";
 	JButton buttonTEAdd;
 	private static final String BUTTON_TE_ADD_TEXT = "Add Game";
 	JButton buttonTEDelete;
@@ -227,10 +229,12 @@ public class TTWindow {
 		
 		// Initialize Tournament Editor Menu
 		panelTournamentEditor = new JPanel(new BorderLayout());
+		JPanel panelTETopButtons = new JPanel(new GridLayout(1, 2));
 		JPanel panelTEMatchInput = new JPanel(new GridLayout(1, 6));
 		JPanel panelTEAdditionalInfo = new JPanel(new GridLayout(8, 1));
 		JPanel panelTEDate = new JPanel(new GridLayout(1, 3));
 		buttonTESave = new JButton(BUTTON_TE_SAVE_TEXT);
+		buttonTELoad = new JButton(BUTTON_TE_LOAD_TEXT);
 		buttonTEAdd = new JButton(BUTTON_TE_ADD_TEXT);
 		buttonTEDelete = new JButton(BUTTON_TE_DELETE_TEXT);
 		JTextField labelTEWinner = new JTextField(LABEL_TE_WINNER);
@@ -258,8 +262,11 @@ public class TTWindow {
 		JScrollPane paneTEList = new JScrollPane(listTEMatches, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		buttonTESave.addActionListener(engine);
+		buttonTELoad.addActionListener(engine);
 		buttonTEAdd.addActionListener(engine);
 		buttonTEDelete.addActionListener(engine);
+		panelTETopButtons.add(buttonTESave);
+		panelTETopButtons.add(buttonTELoad);
 		panelTEDate.add(fieldTEMonth);
 		panelTEDate.add(fieldTEDay);
 		panelTEDate.add(fieldTEYear);
@@ -277,7 +284,7 @@ public class TTWindow {
 		panelTEMatchInput.add(fieldTELoser);
 		panelTEMatchInput.add(buttonTEAdd);
 		panelTEMatchInput.add(buttonTEDelete);
-		panelTournamentEditor.add(buttonTESave, BorderLayout.NORTH);
+		panelTournamentEditor.add(panelTETopButtons, BorderLayout.NORTH);
 		panelTournamentEditor.add(paneTEList, BorderLayout.CENTER);
 		panelTournamentEditor.add(panelTEAdditionalInfo, BorderLayout.EAST);
 		panelTournamentEditor.add(panelTEMatchInput, BorderLayout.SOUTH);

@@ -2,6 +2,8 @@ package window;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,6 +11,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import data.ELOCalc;
 import data.Match;
@@ -26,12 +30,16 @@ public class TTEngine implements ActionListener {
 	private static final int TOURNAMENT_EDITOR = 5;
 	private static final int TOURNAMENT_MANAGER = 6;
 	
+	// CONSTANTS - Error Messages
+	private static final String ERR_FILE_READ = "ERROR: Could not read selected file";
+	
 	// Data Members
 	private TTWindow parent;
 	private int currentMenu;
 	private HashMap<Integer, Player> players;
 	private ArrayList<Tournament> tournaments;
 	private ArrayList<Match> matches;
+	private File lastDirectory;
 	
 	// Constructor
 	public TTEngine(TTWindow p)
@@ -41,6 +49,7 @@ public class TTEngine implements ActionListener {
 		currentMenu = MAIN_MENU;
 		players = new HashMap<Integer, Player>();
 		tournaments = new ArrayList<Tournament>();
+		lastDirectory = null;
 	}
 	
 	@Override
@@ -160,6 +169,10 @@ public class TTEngine implements ActionListener {
 					addMatch(winnerName, loserName);
 				}
 			}
+			else if(source == parent.buttonTELoad)
+			{
+				loadTournament();
+			}
 			else if(source == parent.buttonTEDelete)
 			{
 				removeMatch();
@@ -212,6 +225,43 @@ public class TTEngine implements ActionListener {
 	}
 	
 	// TOURNAMENT EDITOR METHODS
+	// loadTournament
+	private void loadTournament()
+	{	
+		JFileChooser selector = new JFileChooser();
+		selector.setCurrentDirectory(lastDirectory);
+		
+		int result = selector.showOpenDialog(parent.buttonTELoad);
+		if(result == JFileChooser.APPROVE_OPTION)
+		{
+			// Reset data
+			matches = new ArrayList<Match>();
+			DefaultListModel<String> model = (DefaultListModel<String>) parent.listTEMatches.getModel();
+			model.removeAllElements();
+			
+			File tournamentFile = selector.getSelectedFile();
+			try
+			{
+				Scanner fileScan = new Scanner(tournamentFile);
+				while(fileScan.hasNextLine())
+				{
+					String winner = fileScan.next();
+					String loser = fileScan.next();
+					addMatch(winner, loser);
+				}
+				fileScan.close();
+			}
+			catch(IOException ioe)
+			{
+				JOptionPane.showMessageDialog(parent.buttonTELoad, ERR_FILE_READ);
+				
+				// Reset data
+				matches = new ArrayList<Match>();
+				model.removeAllElements();
+			}
+		}
+	}
+	
 	// addMatch
 	private void addMatch(String winnerName, String loserName)
 	{
