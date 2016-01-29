@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
 
+import data.ELOCalc;
 import data.Match;
 import data.Player;
 import data.Tournament;
@@ -121,7 +122,7 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonRMGenerate)
 			{
-				// TODO: Handle button
+				generateRatings();
 			}
 		}
 		// Seeding menu buttons
@@ -432,5 +433,31 @@ public class TTEngine implements ActionListener {
 			for(int i = 0; i < pools.length; i++)
 				parent.areaSMResults.append("POOL " + (i + 1) + ":\n" + pools[i] + "\n");
 		}
+	}
+	
+	// RATINGS MENU METHODS
+	private void generateRatings()
+	{
+		parent.areaRMRatings.setText("");
+		
+		// Loop through all tournaments
+		for(int tournament = 0; tournament < tournaments.size(); tournament++)
+		{
+			ArrayList<Match> matches = tournaments.get(tournament).getMatches();
+			for(int match = 0; match < matches.size(); match++)
+			{
+				Player winner = matches.get(match).getWinner();
+				Player loser = matches.get(match).getLoser();
+				
+				int eloAwarded = ELOCalc.newElo(winner.getRating(), loser.getRating(), true) - winner.getRating();
+				winner.setRating(winner.getRating() + eloAwarded);
+				loser.setRating(loser.getRating() - eloAwarded);
+			}
+		}
+		
+		ArrayList<Player> sortedPlayers = new ArrayList<Player>(players.values());
+		Collections.sort(sortedPlayers);
+		for(int i = 0; i < sortedPlayers.size(); i++)
+			parent.areaRMRatings.append(sortedPlayers.get(i).getRating() + " - " + sortedPlayers.get(i).getName() + "\n");
 	}
 }

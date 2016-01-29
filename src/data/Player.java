@@ -31,7 +31,7 @@ public class Player implements Comparable<Player> {
 	{
 		name = n;
 		
-		rating = 0;
+		rating = ELOCalc.ELO_BASE;
 		wins = 0;
 		losses = 0;
 		versusRecords = new HashMap<Integer, VersusRecord>();
