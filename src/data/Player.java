@@ -35,6 +35,11 @@ public class Player implements Comparable<Player> {
 		wins = 0;
 		losses = 0;
 		versusRecords = new HashMap<Integer, VersusRecord>();
+		firstPlaces = 0;
+		secondPlaces = 0;
+		thirdPlaces = 0;
+		main = "";
+		secondary = "";
 	}
 	
 	// setComparisonMode
@@ -165,6 +170,7 @@ public class Player implements Comparable<Player> {
 		{
 			record = new VersusRecord(opponent);
 			record.setNumWins(record.getNumWins() + 1);
+			versusRecords.put(opponent.getHashcode(), record);
 		}
 		else
 		{
@@ -182,6 +188,7 @@ public class Player implements Comparable<Player> {
 		{
 			record = new VersusRecord(opponent);
 			record.setNumLosses(record.getNumLosses() + 1);
+			versusRecords.put(opponent.getHashcode(), record);
 		}
 		else
 		{
@@ -223,5 +230,12 @@ public class Player implements Comparable<Player> {
 	public void setThirdPlaces(int t)
 	{
 		thirdPlaces = t;
+	}
+	
+	// toString
+	@Override
+	public String toString()
+	{
+		return name;
 	}
 }

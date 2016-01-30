@@ -2,6 +2,7 @@ package window;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -11,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import data.Player;
+import data.VersusRecord;
 
 public class TTWindow {
 
@@ -110,7 +114,7 @@ public class TTWindow {
 	private static final String BUTTON_PL_BACK_TEXT = "MAIN MENU";
 	JButton buttonPLView;
 	private static final String BUTTON_PL_VIEW_TEXT = "View Selected Player's Profile";
-	JList<String> listPLPlayers;
+	JList<Player> listPLPlayers;
 	
 	// Elements - Player Profile
 	private static final String TITLE_PLAYER_PROFILE = "Profile";
@@ -293,7 +297,7 @@ public class TTWindow {
 		panelPlayersList = new JPanel(new BorderLayout());
 		buttonPLBack = new JButton(BUTTON_PL_BACK_TEXT);
 		buttonPLView = new JButton(BUTTON_PL_VIEW_TEXT);
-		listPLPlayers = new JList<String>(new DefaultListModel<String>());
+		listPLPlayers = new JList<Player>(new DefaultListModel<Player>());
 		listPLPlayers.setLayoutOrientation(JList.VERTICAL);
 		JScrollPane panePLList = new JScrollPane(listPLPlayers, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -454,6 +458,24 @@ public class TTWindow {
 		frame.setTitle(TITLE_TOURNAMENT_MANAGER);
 		frame.setSize(WIDTH_TOURNAMENT_MANAGER, HEIGHT_TOURNAMENT_MANAGER);
 		frame.setVisible(true);
+	}
+	
+	// setupPlayerProfile
+	public void setupPlayerProfile(Player player)
+	{
+		if(player == null)
+			return;
+		
+		fieldPPName.setText(player.getName());
+		fieldPPRating.setText(Integer.toString(player.getRating()));
+		fieldPPRecord.setText(player.getWins() + " - " + player.getLosses());
+		fieldPPMain.setText(player.getMain());
+		fieldPPSecondary.setText(player.getSecondary());
+		
+		areaPPDetailedRecord.setText("");
+		ArrayList<VersusRecord> records = player.getAllVersusRecords();
+		for(int i = 0; i < records.size(); i++)
+			areaPPDetailedRecord.append(records.get(i).toString() + "\n");
 	}
 	
 	// main

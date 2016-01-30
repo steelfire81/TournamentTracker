@@ -40,6 +40,7 @@ public class TTEngine implements ActionListener {
 	private ArrayList<Tournament> tournaments;
 	private ArrayList<Match> matches;
 	private File lastDirectory;
+	private Player currentPlayer;
 	
 	// Constructor
 	public TTEngine(TTWindow p)
@@ -92,6 +93,7 @@ public class TTEngine implements ActionListener {
 			else if(source == parent.buttonMMViewPlayers)
 			{
 				Player.setComparisonMode(Player.COMPARE_NAME);
+				updatePlayersList();
 				currentMenu = PLAYERS_LIST;
 				parent.setFrameToPlayersList();
 			}
@@ -101,7 +103,8 @@ public class TTEngine implements ActionListener {
 		{
 			if(source == parent.buttonPPBack)
 			{
-				// TODO: Handle button
+				currentMenu = PLAYERS_LIST;
+				parent.setFrameToPlayersList();
 			}
 			else if(source == parent.buttonPPEdit)
 			{
@@ -118,7 +121,13 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonPLView)
 			{
-				// TODO: Handle button
+				Player selected = parent.listPLPlayers.getSelectedValue();
+				if(selected != null)
+				{
+					setPlayerProfile(selected);
+					currentMenu = PLAYER_PROFILE;
+					parent.setFrameToPlayerProfile();
+				}
 			}
 		}
 		// Ratings menu buttons
@@ -234,6 +243,8 @@ public class TTEngine implements ActionListener {
 		int result = selector.showOpenDialog(parent.buttonTELoad);
 		if(result == JFileChooser.APPROVE_OPTION)
 		{
+			lastDirectory = selector.getCurrentDirectory();
+			
 			// Reset data
 			matches = new ArrayList<Match>();
 			DefaultListModel<String> model = (DefaultListModel<String>) parent.listTEMatches.getModel();
@@ -310,7 +321,7 @@ public class TTEngine implements ActionListener {
 			Player winner = matches.get(i).getWinner();
 			Player loser = matches.get(i).getLoser();
 			winner.recordWin(loser);
-			loser.recordWin(winner);
+			loser.recordLoss(winner);
 			handledMatches.add(new Match(winner, loser));
 		}
 		
@@ -486,6 +497,7 @@ public class TTEngine implements ActionListener {
 	}
 	
 	// RATINGS MENU METHODS
+	// generateRatings
 	private void generateRatings()
 	{
 		parent.areaRMRatings.setText("");
@@ -509,5 +521,25 @@ public class TTEngine implements ActionListener {
 		Collections.sort(sortedPlayers);
 		for(int i = 0; i < sortedPlayers.size(); i++)
 			parent.areaRMRatings.append(sortedPlayers.get(i).getRating() + " - " + sortedPlayers.get(i).getName() + "\n");
+	}
+	
+	// PLAYERS LIST METHODS
+	// updatePlayersList
+	private void updatePlayersList()
+	{
+		ArrayList<Player> playersList = new ArrayList<Player>(players.values());
+		Collections.sort(playersList);
+		DefaultListModel<Player> model = (DefaultListModel<Player>) parent.listPLPlayers.getModel();
+		model.removeAllElements();
+		
+		for(int i = 0; i < playersList.size(); i++)
+			model.addElement(playersList.get(i));
+	}
+	
+	// PLAYER PROFILE METHODS
+	private void setPlayerProfile(Player target)
+	{
+		currentPlayer = target;
+		parent.setupPlayerProfile(target);
 	}
 }

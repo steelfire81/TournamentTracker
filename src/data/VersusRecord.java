@@ -54,4 +54,10 @@ public class VersusRecord implements Comparable<VersusRecord> {
 		else
 			return opponent.getName().toUpperCase().compareTo(other.getOpponent().getName().toUpperCase());
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "VS. " + opponent + ": " + numWins + "-" + numLosses + " (" + getWinPercentage() + ")";
+	}
 }
