@@ -41,6 +41,7 @@ public class TTEngine implements ActionListener {
 	private ArrayList<Match> matches;
 	private File lastDirectory;
 	private Player currentPlayer;
+	private boolean profileEditing;
 	
 	// Constructor
 	public TTEngine(TTWindow p)
@@ -51,6 +52,7 @@ public class TTEngine implements ActionListener {
 		players = new HashMap<Integer, Player>();
 		tournaments = new ArrayList<Tournament>();
 		lastDirectory = null;
+		profileEditing = false;
 	}
 	
 	@Override
@@ -108,7 +110,10 @@ public class TTEngine implements ActionListener {
 			}
 			else if(source == parent.buttonPPEdit)
 			{
-				// TODO: Handle button
+				if(!profileEditing) // Currently editing profile
+					editProfile();
+				else // Not currently editing profile
+					saveProfile();
 			}
 		}
 		// Players list buttons
@@ -537,9 +542,43 @@ public class TTEngine implements ActionListener {
 	}
 	
 	// PLAYER PROFILE METHODS
+	// setPlayerProfile
 	private void setPlayerProfile(Player target)
 	{
 		currentPlayer = target;
 		parent.setupPlayerProfile(target);
+	}
+	
+	// editProfile
+	private void editProfile()
+	{
+		parent.fieldPPName.setEditable(true);
+		parent.fieldPPMain.setEditable(true);
+		parent.fieldPPSecondary.setEditable(true);
+		profileEditing = true;
+	}
+	
+	// saveProfile
+	private void saveProfile()
+	{
+		parent.fieldPPName.setEditable(false);
+		parent.fieldPPMain.setEditable(false);
+		parent.fieldPPSecondary.setEditable(false);
+		
+		String name = parent.fieldPPName.getText();
+		String main = parent.fieldPPMain.getText();
+		String secondary = parent.fieldPPSecondary.getText();
+		
+		currentPlayer.setMain(main);
+		currentPlayer.setSecondary(secondary);
+		
+		// When setting name, ensure this name is not already taken
+		Player otherPlayer = players.get(name.hashCode());
+		if((otherPlayer != null) && (otherPlayer != currentPlayer))
+			parent.fieldPPName.setText(currentPlayer.getName());
+		else // Not already taken, save new name
+			currentPlayer.setName(name);
+		
+		profileEditing = false;
 	}
 }
