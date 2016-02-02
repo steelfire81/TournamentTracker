@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Tournament implements Comparable<Tournament> {
 
@@ -12,6 +13,7 @@ public class Tournament implements Comparable<Tournament> {
 	private Player second;
 	private Player third;
 	private ArrayList<Match> matchList;
+	private HashMap<Integer, Player> players;
 	
 	// Constructor
 	public Tournament(int m, int d, int y, ArrayList<Match> matches, Player f, Player s, Player t)
@@ -23,6 +25,7 @@ public class Tournament implements Comparable<Tournament> {
 		first = f;
 		second = s;
 		third = t;
+		players = new HashMap<Integer, Player>();
 	}
 	
 	// getMonth
@@ -53,6 +56,17 @@ public class Tournament implements Comparable<Tournament> {
 	public void setMatches(ArrayList<Match> matches)
 	{
 		matchList = matches;
+		for(int i = 0; i < matches.size(); i++)
+		{
+			Player winner = matches.get(i).getWinner();
+			Player loser = matches.get(i).getLoser();
+			
+			if(players.get(winner.getHashcode()) == null)
+				players.put(winner.getHashcode(), winner);
+			
+			if(players.get(loser.getHashcode()) == null)
+				players.put(loser.getHashcode(), loser);
+		}
 	}
 	
 	// getFirst
